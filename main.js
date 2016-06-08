@@ -1,4 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
+import {render} from 'react-dom'
+import {Router, Route, hashHistory} from 'react-router'
 import App from './components/App';
-ReactDOM.render(<App />, document.getElementById('app'));
+import MapsApp from './components/MapsApp'
+// ReactDOM.render(<App />, document.getElementById('app'));
+
+render((
+  <Router history={hashHistory}>
+    <Route path="/" component={App} />
+    <Route path="maps" component={MapsApp} />
+  </Router>
+  ), document.getElementById('app'))
