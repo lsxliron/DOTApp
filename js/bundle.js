@@ -231,7 +231,7 @@ var DownloadPanelActions = function () {
           var filename = data['filename'];
           _this.downloadFile(filename);
           // window.open("http://water.ccny.cuny.edu/lsxliron/download/"+filename)
-          window.open("http://water.ccny.cuny.edu/lsxliron/" + filename);
+          window.open("http://water.ccny.cuny.edu/lsxliron/download/" + filename);
         }
       }).fail(function (jqXhr) {
         console.log("FAIL", jqXhr);
