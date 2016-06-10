@@ -1209,7 +1209,7 @@ var DownloadPanel = function (_React$Component) {
   }, {
     key: 'selectAll',
     value: function selectAll() {
-      $.each($('input[type="checkbox'), function (i, d) {
+      $.each($('input[type="checkbox"]'), function (i, d) {
         d.checked = true;
       });
       $.each(_ResultsTableStore2.default.getState().results, function (i, d) {
@@ -1582,7 +1582,7 @@ var LoginForm = function (_React$Component) {
 exports.default = LoginForm;
 
 },{"../actions/LoginFormActions":6,"../stores/LoginFormStore":34,"react":"react"}],19:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -1590,7 +1590,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -1612,25 +1612,29 @@ var MapResultTableRow = function (_React$Component) {
   }
 
   _createClass(MapResultTableRow, [{
-    key: 'render',
+    key: "render",
     value: function render() {
       return _react2.default.createElement(
-        'tr',
+        "tr",
         null,
         _react2.default.createElement(
-          'td',
+          "td",
           null,
-          this.props.live_id
+          _react2.default.createElement(
+            "a",
+            { href: "http://dotsignals.org/multiview2.php?listcam=" + this.props.live_id, target: "_blank" },
+            this.props.live_id
+          )
         ),
         _react2.default.createElement(
-          'td',
+          "td",
           null,
           this.props.location
         ),
         _react2.default.createElement(
-          'td',
+          "td",
           null,
-          this.props.distance / 1000
+          this.props.distance
         )
       );
     }
