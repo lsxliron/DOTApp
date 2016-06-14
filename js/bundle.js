@@ -480,11 +480,9 @@ var ResultsTableActions = function () {
       var params = JSON.stringify(data);
 
       xhr.open("POST", url, true);
-      xhr.timeout = 1000 * 30;
+      // xhr.timeout = 1000 * 60
 
-      xhr.ontimeout = function (xhr) {
-        alert("TIMEOUT");_QueryFormActions2.default.setLoadingState(true);
-      };
+      // xhr.ontimeout = (xhr) => {alert("TIMEOUT"); QueryFormActions.setLoadingState(true)}
       xhr.onreadystatechange = function (xhr) {
         if (xhr.srcElement.readyState == 4 && xhr.srcElement.status == 200) {
           _QueryFormActions2.default.setLoadingState(true);
@@ -674,7 +672,7 @@ var App = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'col-xs-5' },
-                            _react2.default.createElement(_QueryForm2.default, null)
+                            _react2.default.createElement(_QueryForm2.default, { camId: this.props.params.hasOwnProperty("camId") ? this.props.params.camId : null })
                         ),
                         _react2.default.createElement(
                             'div',
@@ -1582,7 +1580,7 @@ var LoginForm = function (_React$Component) {
 exports.default = LoginForm;
 
 },{"../actions/LoginFormActions":6,"../stores/LoginFormStore":34,"react":"react"}],19:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -1590,9 +1588,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = require('react-router');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1612,29 +1612,42 @@ var MapResultTableRow = function (_React$Component) {
   }
 
   _createClass(MapResultTableRow, [{
-    key: "render",
+    key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        "tr",
+        'tr',
         null,
         _react2.default.createElement(
-          "td",
+          'td',
           null,
           _react2.default.createElement(
-            "a",
-            { href: "http://dotsignals.org/multiview2.php?listcam=" + this.props.live_id, target: "_blank" },
+            'a',
+            { href: 'http://dotsignals.org/multiview2.php?listcam=' + this.props.live_id, target: '_blank' },
             this.props.live_id
           )
         ),
         _react2.default.createElement(
-          "td",
+          'td',
           null,
           this.props.location
         ),
         _react2.default.createElement(
-          "td",
+          'td',
           null,
           this.props.distance
+        ),
+        _react2.default.createElement(
+          'td',
+          null,
+          _react2.default.createElement(
+            _reactRouter.Link,
+            { to: '/search/' + this.props.live_id },
+            _react2.default.createElement(
+              'button',
+              { className: 'btn btn-info', onClick: this.passCamIdToForm },
+              'Search'
+            )
+          )
         )
       );
     }
@@ -1645,7 +1658,7 @@ var MapResultTableRow = function (_React$Component) {
 
 exports.default = MapResultTableRow;
 
-},{"react":"react"}],20:[function(require,module,exports){
+},{"react":"react","react-router":142}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1931,7 +1944,7 @@ var Navbar = function (_React$Component) {
                 { 'data-toggle': 'modal', 'data-target': '#loginModal' },
                 _react2.default.createElement(
                   'a',
-                  { href: '#' },
+                  { href: '#!' },
                   'Login'
                 )
               )
@@ -1944,7 +1957,7 @@ var Navbar = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                   'a',
-                  { href: 'http://localhost:5000/', target: '_blank' },
+                  { href: 'http://water.ccny.cuny.edu/lsxliron', target: '_blank' },
                   'Register'
                 )
               ),
@@ -2280,7 +2293,7 @@ var QueryForm = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'col-xs-2' },
-            _react2.default.createElement('input', { ref: 'location', onChange: this.handleLocationChange, className: 'form-control', type: 'text', placeholder: 'e.g 192' })
+            _react2.default.createElement('input', { ref: 'location', onChange: this.handleLocationChange, className: 'form-control', type: 'text', placeholder: 'e.g 112', defaultValue: this.props.camId })
           )
         ),
         _react2.default.createElement(
@@ -2922,7 +2935,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   _reactRouter.Router,
   { history: _reactRouter.hashHistory },
   _react2.default.createElement(_reactRouter.Route, { path: '/', component: _App2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: 'maps', component: _MapsApp2.default })
+  _react2.default.createElement(_reactRouter.Route, { path: '/search/:camId', component: _App2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: '/maps', component: _MapsApp2.default })
 ), document.getElementById('app'));
 
 },{"./components/App":12,"./components/MapsApp":20,"react":"react","react-dom":"react-dom","react-router":142}],29:[function(require,module,exports){
